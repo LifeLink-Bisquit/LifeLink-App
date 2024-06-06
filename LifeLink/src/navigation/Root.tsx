@@ -1,15 +1,17 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
-import useGeneralStore from '../store/generalStore';
+import {getUser} from '../constants/app.utils';
+import {ADMIN_ROLE, PERSON_ROLE} from '../services/api/constants';
 import SplashScreen from '../ui/screens/SplashScreen';
-import {AUTH_NAVIGATOR, HOME_NAVIGATOR} from './routes';
+import useGeneralStore from '../zustand/generalStore';
 import AuthNavigator from './auth/AuthNavigator';
 import MainNavigator from './main/MainNavigator';
+import UserNavigator from './main/UserNavigator';
+import {AUTH_NAVIGATOR, HOME_NAVIGATOR} from './routes';
 
 const Root = () => {
   const RootStack = createNativeStackNavigator();
   const [splashVisibility, setSplashVisibility] = useState<boolean>(true);
-
   const isLoggedIn = useGeneralStore(state => state.isLoggedIn);
 
   useEffect(() => {
@@ -18,12 +20,24 @@ const Root = () => {
     }, 2000);
   }, []);
 
+  const getNavigatorByRole = () => {
+    if (getUser().role === PERSON_ROLE) {
+      return (
+        <RootStack.Screen name={HOME_NAVIGATOR} component={UserNavigator} />
+      );
+    }
+    return <RootStack.Screen name={HOME_NAVIGATOR} component={MainNavigator} />;
+  };
+
   return splashVisibility ? (
     <SplashScreen />
   ) : (
     <RootStack.Navigator screenOptions={{headerShown: false}}>
+      {
+        //TODO: Change it
+      }
       {isLoggedIn ? (
-        <RootStack.Screen name={HOME_NAVIGATOR} component={MainNavigator} />
+        getNavigatorByRole()
       ) : (
         <RootStack.Screen name={AUTH_NAVIGATOR} component={AuthNavigator} />
       )}
