@@ -132,7 +132,8 @@ const RegisterScreen: React.FC = () => {
         transparent={false}
         visible={modalVisible}
         onRequestClose={closeModal}>
-        <View style={styles.modalContent}>
+        <Screen containerStyle={styles.modalContent}>
+          <Text children={'location'} fontSize="xLarge" />
           <MapView
             style={styles.map}
             region={region}
@@ -143,7 +144,7 @@ const RegisterScreen: React.FC = () => {
           </View>
 
           <Button label="save" onPress={closeModal} />
-        </View>
+        </Screen>
       </Modal>
     </Screen>
   );

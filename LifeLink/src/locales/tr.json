@@ -32,9 +32,43 @@
     "evacPersonAdd": "Kişi Ekle",
     "chooseMedication": "İlaç(lar) Seçiniz",
     "chooseIllness": "Hastalık(lar) Seçiniz",
+    "chooseSpecialNeeds": "Özel İhtiyaç(lar) Seçiniz",
+    "chooseProsthesis": "Protez(ler) Seçiniz",
     "savePerson": "Kişiyi Kaydet",
     "description": "Açıklama",
     "usersPeople": "Kişilerim",
     "linkToLife": "Hayata Bağla",
-    "waitForDataFetch": "Veriler yükleniyor..."
+    "waitForDataFetch": "Veriler yükleniyor...",
+    "save" : "Kaydet",
+
+    "SAFE": "GÜVENLİ",
+    "UNKNOWN": "BİLİNMİYOR",
+    "NEEDS_ASSISTANCE": "YARDIMA İHTİYACI VAR",
+    "GETTING_TREATMENT": "TEDAVİ GÖRÜYOR",
+    "DECEASED": "ÖLMÜŞ",
+    "NEUTRAL": "NÖTR",
+
+    "age": "Yaş",
+    "status": "Durum",
+    "details": "Detaylar:",
+    "medic" : "İlaçlar",
+    "illness":  "Hastalıklar",
+    "special_needs" : "Özel İhtiyaçlar",
+    "prosthesis" : "Protezler",
+
+    "operationDuration": "Operasyon Süresi: ",
+    "days": "Gün",
+    "hours": "Saat",
+    "minutes": "Dakika",
+
+    "passwordChangeInfo": "Şifrenizi değiştirmek için lütfen yeni şifrenizi girin.",
+    "oldPassword": "Eski Şifre",
+    "newPassword": "Yeni Şifre",
+    "confirm": "Onayla",
+
+    "last5earthquakes": "Son 5 Deprem",
+    "time": "Zaman",
+    "magnitude": "Şiddet",
+    "depth": "Derinlik"
+    
 }

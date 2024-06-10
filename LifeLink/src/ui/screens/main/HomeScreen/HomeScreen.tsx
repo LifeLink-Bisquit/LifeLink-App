@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Modal, StyleSheet} from 'react-native';
-import WebView from 'react-native-webview';
+import {getLast5EarthQuakes} from '../../../../services/kandilli_api/getLast5';
+import EarthquakeDetails from '../../../components/EarthquakeDetails/EarthquakeDeatils';
 import Screen from '../../../components/Screen/Screen';
 import Spacer from '../../../components/Spacer/Spacer';
 import StoryPreview, {StoryItem} from '../../../components/Story/StoryPreview';
@@ -15,37 +16,27 @@ const HomeScreen = () => {
     {
       id: '1',
       type: 'image',
-      url: 'https://fastly.picsum.photos/id/821/200/300.jpg?hmac=-CLZlHMcIt8hXlUFZ4-3AvLYDsUJSwUeTri-zHDlnoA',
+      url: 'https://cdn1.ntv.com.tr/gorsel/WOGIXTo1zk6fNLC35ivK3g.jpg?width=1000&mode=crop&scale=both',
     },
     {
       id: '2',
       type: 'image',
-      url: 'https://fastly.picsum.photos/id/98/200/300.jpg?hmac=b1gHu5QkH33ZHWHl0HPyu_uftF3gRbFhu0l6v88RrZA',
+      url: 'https://cdn1.ntv.com.tr/gorsel/-wkMF_KU0USMQLiuginGKg.jpg?width=1000&mode=crop&scale=both',
     },
     {
       id: '3',
       type: 'image',
-      url: 'https://fastly.picsum.photos/id/96/200/300.jpg?hmac=q257RPq4_aD8wno1Mkb4eP37WQzxDcNNLPu_HBwKdag',
+      url: 'https://www.odemis.bel.tr/images/genel/deprem03.jpg',
     },
     {
       id: '4',
       type: 'image',
-      url: 'https://fastly.picsum.photos/id/96/200/300.jpg?hmac=q257RPq4_aD8wno1Mkb4eP37WQzxDcNNLPu_HBwKdag',
+      url: 'https://sakarya.afad.gov.tr/kurumlar/sakarya.afad/40448/pics/Afett.600px.jpg',
     },
     {
       id: '5',
       type: 'image',
-      url: 'https://fastly.picsum.photos/id/96/200/300.jpg?hmac=q257RPq4_aD8wno1Mkb4eP37WQzxDcNNLPu_HBwKdag',
-    },
-    {
-      id: '6',
-      type: 'image',
-      url: 'https://fastly.picsum.photos/id/96/200/300.jpg?hmac=q257RPq4_aD8wno1Mkb4eP37WQzxDcNNLPu_HBwKdag',
-    },
-    {
-      id: '7',
-      type: 'image',
-      url: 'https://fastly.picsum.photos/id/96/200/300.jpg?hmac=q257RPq4_aD8wno1Mkb4eP37WQzxDcNNLPu_HBwKdag',
+      url: 'https://lh4.googleusercontent.com/proxy/EJjjNkKgsA9HlOP1uXNMSSGM2Z72Ts51jmGLhpp_KaCWks5vZk5-yeCp7jaPSwAjWJVYvt51WY-xINS4uxrFIA3cXiXzv5wA11-n6lCBfgjT9AOTJ_Zo6LN0znvkEqC3utSRsyQjOnrK077vjMBkOCA',
     },
   ];
 
@@ -59,8 +50,10 @@ const HomeScreen = () => {
       <Spacer height={20} />
       <SubHeader value="needToKnow" />
       <StoryPreview stories={stories} onStoryPress={handleStoryPress} />
-      <SubHeader value="news" />
-      <SubHeader value="news" />
+
+      <SubHeader value="last5earthquakes" />
+      <Spacer height={10} />
+      <EarthquakeDetails />
       <Modal
         visible={showStoryViewer}
         transparent={true}

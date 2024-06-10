@@ -40,7 +40,7 @@ const CustomBackdrop = props => {
 };
 
 const MapScreen: React.FC = () => {
-  const navigation = useNavigation();
+  const {goBack} = useNavigation();
   const [selectedMarker, setSelectedMarker] = useState<Coordinate>({
     latitude: 0,
     longitude: 0,
@@ -149,13 +149,7 @@ const MapScreen: React.FC = () => {
         <BottomSheetView style={styles.bottomSheetContainer}>
           {bottomSheetContent === 'info' ? (
             <>
-              <EvacueeInfo
-                age={selectedUser.age}
-                imageUrl="https://fastly.picsum.photos/id/281/300/300.jpg?hmac=M1ECxENtZTA9gbkNhZXKZASKpDH3VcYjpr3HmLFwwrk"
-                location="Beyoglu, Istanbul"
-                medicineInfo='{"medicine": "Aspirin", "dose": "2"}'
-                name={selectedUser.name}
-              />
+              <EvacueeInfo evacPerson={selectedUser} />
 
               <View
                 style={{
@@ -169,7 +163,7 @@ const MapScreen: React.FC = () => {
                   isLoading={buttonLoading}
                   onPress={() => {
                     startEvacOperation(selectedUser.id, () => {
-                      navigation.navigate('EvacProcessScreen');
+                      goBack();
                     });
                   }}
                   label="linkToLife"

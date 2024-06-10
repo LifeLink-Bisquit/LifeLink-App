@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
   modalContent: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
   },
   map: {
     width: '100%',

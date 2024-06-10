@@ -1,7 +1,5 @@
+import {EvacPerson} from '../../../services/api/types/app.types';
+
 export interface EvacueeInfoProps {
-  imageUrl: string;
-  name: string;
-  age: number;
-  medicineInfo: string;
-  location: string;
+  evacPerson?: EvacPerson;
 }

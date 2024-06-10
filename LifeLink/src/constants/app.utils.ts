@@ -79,3 +79,20 @@ export const getLocationDescription = async ({
     return 'An error occurred while retrieving the location description.';
   }
 };
+
+export const getRandomColor = () => {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
+export function getSecondsSinceCreateTime(createTime: string): number {
+  const createTimeDate = new Date(createTime);
+  const now = new Date();
+  const diffInMilliseconds = now.getTime() - createTimeDate.getTime();
+  const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+  return diffInSeconds;
+}

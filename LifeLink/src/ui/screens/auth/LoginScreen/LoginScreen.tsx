@@ -1,6 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {useTranslation} from 'react-i18next';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {
   Languages,

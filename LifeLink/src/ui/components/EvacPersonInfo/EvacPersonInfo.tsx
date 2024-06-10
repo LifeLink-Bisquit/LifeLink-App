@@ -1,33 +1,160 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
-  Age,
-  Container,
-  Image,
-  InfoContainer,
-  Location,
-  MedicineInfo,
-  Name,
-} from './styles';
-import {EvacueeInfoProps} from './types';
+  Modal,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import CrossIcon from '../../../../assets/svgs/cross.svg';
+import DownIcon from '../../../../assets/svgs/down.svg';
+import {Colors} from '../../../constants/colors';
+import {getEvacPersonStatusById} from '../../../services/api/constants';
 import Avatar from '../Avatar/Avatar';
+import ParameterList from '../ParameterList/ParameterList';
+import Spacer from '../Spacer/Spacer';
+import Text from '../Text/Text';
+import {EvacueeInfoProps} from './types';
 
-const EvacueeInfo: React.FC<EvacueeInfoProps> = ({
-  name,
-  age,
-  medicineInfo,
-  location,
-}) => {
+const EvacueeInfo: React.FC<EvacueeInfoProps> = ({evacPerson}) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
+
   return (
-    <Container>
-      <Avatar text={name ?? ''} size={80} />
-      <InfoContainer>
-        <Name>{name}</Name>
-        <Age>Age: {age}</Age>
-        <MedicineInfo>Medicine: {medicineInfo}</MedicineInfo>
-        <Location>Location: {location}</Location>
-      </InfoContainer>
-    </Container>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={toggleExpand}>
+        <View style={styles.innerContainer}>
+          <Avatar text={evacPerson?.name ?? ''} size={80} />
+          <View style={styles.infoContainer}>
+            <Text style={styles.name} fontSize="xLarge">
+              {evacPerson?.name}
+            </Text>
+            <Text style={styles.text} fontSize="large">
+              {getEvacPersonStatusById(evacPerson?.status ?? '')}
+            </Text>
+          </View>
+          <DownIcon style={styles.icon} />
+        </View>
+      </TouchableOpacity>
+      <Modal visible={expanded} animationType="fade" transparent={true}>
+        <View style={styles.modalContainer}>
+          <ScrollView style={styles.modalContent}>
+            <View style={styles.details}>
+              <Text fontSize="xLarge" style={styles.text}>
+                {'details'}
+              </Text>
+              <TouchableOpacity
+                onPress={toggleExpand}
+                style={styles.closeButton}>
+                <CrossIcon color={Colors.white} />
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Text>{'location'}</Text>
+              <Text style={styles.text}>{evacPerson?.locationNote}</Text>
+            </View>
+            <Spacer height={10} />
+            <View>
+              <Text>{'status'}</Text>
+              <Text style={styles.text}>
+                {getEvacPersonStatusById(evacPerson?.status ?? '')}
+              </Text>
+            </View>
+            <Spacer height={10} />
+            <View>
+              <Text>{'age'}</Text>
+              <Text style={styles.text}>{evacPerson?.age}</Text>
+            </View>
+            <ParameterList
+              data={evacPerson?.medications ?? []}
+              variant="medic"
+            />
+            <ParameterList
+              data={evacPerson?.illnesses ?? []}
+              variant="illness"
+            />
+            <ParameterList
+              data={evacPerson?.prosthesis ?? []}
+              variant="prosthesis"
+            />
+            <ParameterList
+              data={evacPerson?.specialNeeds ?? []}
+              variant="special_needs"
+            />
+            <Spacer height={80} />
+          </ScrollView>
+        </View>
+      </Modal>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 20,
+    width: '100%',
+  },
+  innerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: Colors.secondary,
+    borderRadius: 16,
+  },
+  infoContainer: {
+    marginLeft: 10,
+    flex: 1,
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: Colors.white,
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 3,
+    color: Colors.white,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  icon: {
+    marginLeft: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: Colors.secondary,
+    borderRadius: 16,
+    padding: 20,
+    width: '80%',
+    maxHeight: '80%',
+  },
+  closeButton: {
+    backgroundColor: Colors.primary,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    alignSelf: 'flex-end',
+    flexDirection: 'row',
+  },
+  closeButtonText: {
+    fontSize: 16,
+    color: Colors.white,
+  },
+  details: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+});
 
 export default EvacueeInfo;

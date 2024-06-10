@@ -1,4 +1,8 @@
-import {EvacPersonResponse} from '../services/api/types/app.types';
+import {
+  EvacOperation,
+  EvacPerson,
+  EvacPersonResponse,
+} from '../services/api/types/app.types';
 
 export const AUTH_NAVIGATOR = 'AuthNavigator';
 export const HOME_NAVIGATOR = 'TabNavigator';
@@ -22,6 +26,10 @@ export enum MainScreens {
 
 export type MainStackParamList = {
   EvacProcess: undefined;
+  LandingScreen: undefined;
+  MapScreen: undefined;
+  EvacProcessScreen: {data: EvacPerson};
+  EvacutaionHistory: {data: EvacOperation[]};
 };
 
 export type RootStackParamList = {
@@ -39,4 +47,13 @@ export type UserProfileStackParamList = {
   UserProfileScreen: undefined;
   UsersPeople: {data: EvacPersonResponse};
   EvacPersonAdd: undefined;
+  ChangePassword: undefined;
+  AboutUs: undefined;
+};
+
+export type OperatorStackParamList = {
+  ProfileScreen: undefined;
+  EvacutaionHistory: undefined;
+  ChangePassword: undefined;
+  AboutUs: undefined;
 };

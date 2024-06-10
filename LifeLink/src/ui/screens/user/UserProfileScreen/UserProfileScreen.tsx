@@ -11,7 +11,12 @@ import LanguageIcon from '../../../../../assets/svgs/language.svg';
 import LogoutIcon from '../../../../../assets/svgs/logout.svg';
 import MedicineIcon from '../../../../../assets/svgs/medicine.svg';
 import TurkeyFlag from '../../../../../assets/svgs/tr.svg';
-import {STORAGE_KEYS, getUser, storage} from '../../../../constants/app.utils';
+import {
+  STORAGE_KEYS,
+  getRandomColor,
+  getUser,
+  storage,
+} from '../../../../constants/app.utils';
 import {
   Languages,
   switchLanguage,
@@ -52,15 +57,29 @@ const UserProfileScreen: React.FC<ProfileProps> = () => {
 
   const handleLogout = () => {
     const setIsLoggedIn = useGeneralStore.getState().setLoginState;
-    storage.delete(STORAGE_KEYS.TOKEN);
+
     Alert.alert(t('logout'), t('logoutMessage'), [
       {text: t('cancel'), onPress: () => {}},
-      {text: t('yes'), onPress: () => setIsLoggedIn(false)},
+      {
+        text: t('yes'),
+        onPress: () => {
+          storage.delete(STORAGE_KEYS.TOKEN);
+          setIsLoggedIn(false);
+        },
+      },
     ]);
   };
 
   const navigateToMyPeople = () => {
     getAllEvacPerson(data => navigation.navigate('UsersPeople', {data: data}));
+  };
+
+  const handleChangePassword = () => {
+    navigation.navigate('ChangePassword');
+  };
+
+  const handleAboutUs = () => {
+    navigation.navigate('AboutUs');
   };
 
   return (
@@ -70,7 +89,11 @@ const UserProfileScreen: React.FC<ProfileProps> = () => {
       containerStyle={{justifyContent: 'flex-start', paddingTop: 16}}
       useSafeArea={false}
       useScrollView>
-      <Avatar text={userDetails.name} size={90} />
+      <Avatar
+        text={userDetails.name}
+        size={90}
+        backgroundColor={getRandomColor()}
+      />
       <Name>{userDetails.name}</Name>
       <Email>{userDetails.email}</Email>
       <SettingsContainer>
@@ -82,7 +105,7 @@ const UserProfileScreen: React.FC<ProfileProps> = () => {
         <ListItem
           title="changePassword"
           leftItem={<ChangePasswordIcon />}
-          onPress={handleLogout}
+          onPress={handleChangePassword}
         />
 
         <ListItem
@@ -100,18 +123,18 @@ const UserProfileScreen: React.FC<ProfileProps> = () => {
         <ListItem
           title="aboutUs"
           leftItem={<InfoIcon />}
-          onPress={handleLogout}
+          onPress={handleAboutUs}
         />
         <ListItem
           title="logout"
           leftItem={<LogoutIcon />}
           onPress={handleLogout}
         />
-        <ListItem
+        {/* <ListItem
           title="deleteAccount"
           leftItem={<DeleteIcon />}
           onPress={handleLogout}
-        />
+        /> */}
         <Spacer height={40} />
       </SettingsContainer>
     </Screen>

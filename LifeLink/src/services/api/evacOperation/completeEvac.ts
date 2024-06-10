@@ -3,7 +3,7 @@ import Toast from 'react-native-toast-message';
 import {BASE_URL, STORAGE_KEYS, storage} from '../../../constants/app.utils';
 import useGeneralStore from '../../../zustand/generalStore';
 
-export const finishEvacOperation = async (
+export const completeEvac = async (
   id: string,
   status: string,
   onSuccess: () => void,
@@ -14,7 +14,7 @@ export const finishEvacOperation = async (
   const token = storage.getString(STORAGE_KEYS.TOKEN);
 
   axios
-    .post(
+    .put(
       `${BASE_URL}/evacOperation/endEvac/${id}`,
       {evacPersonStatus: status},
       {

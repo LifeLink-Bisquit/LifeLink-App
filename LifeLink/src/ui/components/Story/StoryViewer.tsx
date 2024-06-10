@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   image: {
     width,
     height,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   video: {
     width,

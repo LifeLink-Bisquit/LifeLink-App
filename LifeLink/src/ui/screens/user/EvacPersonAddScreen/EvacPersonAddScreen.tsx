@@ -31,9 +31,13 @@ const EvacPersonAddScreen: React.FC = () => {
 
   const illnessChoices = useParameterStore.getState().illness;
   const medicationChoices = useParameterStore.getState().medication;
+  const prothesisChoices = useParameterStore.getState().prosthesis;
+  const specialNeedsChoices = useParameterStore.getState().specialNeeds;
 
   const [illnesses, setIllness] = useState<string[]>([]);
   const [medications, setMedication] = useState<string[]>([]);
+  const [prosthesis, setProthesis] = useState<string[]>([]);
+  const [specialNeeds, setSpecialNeeds] = useState<string[]>([]);
 
   const openModal = () => setModalVisible(true);
   const closeModal = () => {
@@ -69,6 +73,8 @@ const EvacPersonAddScreen: React.FC = () => {
         name,
         medications,
         illnesses,
+        specialNeeds,
+        prosthesis,
         location: {
           latitude: region?.latitude ?? 0,
           longitude: region?.longitude ?? 0,
@@ -119,16 +125,32 @@ const EvacPersonAddScreen: React.FC = () => {
         <PickerSheet
           items={medicationChoices}
           onSelect={ids => {
-            setIllness(ids);
+            setMedication(ids);
           }}
           label={'chooseMedication'}
         />
         <PickerSheet
           items={illnessChoices}
           onSelect={ids => {
-            setMedication(ids);
+            setIllness(ids);
           }}
           label={'chooseIllness'}
+        />
+
+        <PickerSheet
+          items={prothesisChoices}
+          onSelect={ids => {
+            setProthesis(ids);
+          }}
+          label={'chooseProsthesis'}
+        />
+
+        <PickerSheet
+          items={specialNeedsChoices}
+          onSelect={ids => {
+            setSpecialNeeds(ids);
+          }}
+          label={'chooseSpecialNeeds'}
         />
       </View>
 

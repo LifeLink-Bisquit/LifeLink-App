@@ -5,7 +5,7 @@
     "email": "Email",
     "password": "Password",
     "home": "Home",
-    "map": "Map",
+    "map": "Life Link",
     "profile": "Profile",
     "switchLanguage": "Switch Language",
     "logout": "Logout",
@@ -36,5 +36,36 @@
     "description": "Description",
     "usersPeople": "My People",
     "linkToLife": "Link to Life",
-    "waitForDataFetch": "Please wait while we fetch your data"
+    "waitForDataFetch": "Please wait while we fetch your data",
+    "save" : "Save",
+
+    "SAFE": "SAFE",
+    "UNKNOWN": "UNKNOWN",
+    "NEEDS_ASSISTANCE": "NEEDS_ASSISTANCE",
+    "GETTING_TREATMENT": "GETTING_TREATMENT",
+    "DECEASED": "DECEASED",
+    "NEUTRAL": "NEUTRAL",
+
+    "age": "Age",
+    "status": "Status",
+    "details": "Details:",
+    "medic" : "Medications",
+    "illness":  "Illnesses",
+    "special_needs" : "Special Needs",
+    "prosthesis" : "Prosthetics",
+
+    "operationDuration": "Operation Duration: ",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    
+    "passwordChangeInfo": "Please fill in the following information to change your password.",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirm": "Confirm",
+
+    "last5earthquakes": "Last 5 Earthquakes",
+    "time": "Time",
+    "magnitude": "Magnitude",
+    "depth": "Depth"
 }

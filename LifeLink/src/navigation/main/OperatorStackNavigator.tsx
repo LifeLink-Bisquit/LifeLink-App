@@ -7,25 +7,25 @@ import {useTranslation} from 'react-i18next';
 import {TouchableOpacity, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import BackIcon from '../../../assets/svgs/back.svg';
-import PlusIcon from '../../../assets/svgs/plus.svg';
 import {Colors} from '../../constants/colors';
 import Text from '../../ui/components/Text/Text';
-import UserProfileScreen from '../../ui/screens/user/UserProfileScreen/UserProfileScreen';
-import UsersPeopleScreen from '../../ui/screens/user/UsersPeopleScreen';
-import {UserProfileStackParamList} from '../routes';
+
 import styles from './styles';
-import EvacPersonAddScreen from '../../ui/screens/user/EvacPersonAddScreen/EvacPersonAddScreen';
-import ChangePassword from '../../ui/screens/main/ChangePassword/ChangePassword';
+
 import AboutUs from '../../ui/screens/main/AboutUs/AboutUs';
+import ChangePassword from '../../ui/screens/main/ChangePassword/ChangePassword';
+import EvacHistory from '../../ui/screens/main/EvacuationHistory/EvacHistory';
+import ProfileScreen from '../../ui/screens/main/ProfileScreen';
+import {OperatorStackParamList} from '../routes';
 
-const Stack = createNativeStackNavigator<UserProfileStackParamList>();
+const Stack = createNativeStackNavigator<OperatorStackParamList>();
 
-const UserStack = () => {
+const OperatorStack = () => {
   const {t} = useTranslation();
   const {top} = useSafeAreaInsets();
 
   const getHeader = (
-    navigation: NativeStackNavigationProp<UserProfileStackParamList>,
+    navigation: NativeStackNavigationProp<OperatorStackParamList>,
     title: string,
     isBackButtonVisible: boolean = false,
     rightElement?: ReactNode,
@@ -50,18 +50,42 @@ const UserStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="UserProfileScreen"
+      initialRouteName="ProfileScreen"
       screenOptions={{
         headerShown: true,
       }}>
       <Stack.Screen
-        name="UserProfileScreen"
-        component={UserProfileScreen}
+        name="ProfileScreen"
+        component={ProfileScreen}
         options={({navigation}) => ({
           header: () => getHeader(navigation, t('profile')),
         })}
       />
+
       <Stack.Screen
+        name="EvacutaionHistory"
+        component={EvacHistory}
+        options={({navigation}) => ({
+          header: () => getHeader(navigation, t('evacuationHistory'), true),
+        })}
+      />
+
+      <Stack.Screen
+        name="ChangePassword"
+        component={ChangePassword}
+        options={({navigation}) => ({
+          header: () => getHeader(navigation, t('changePassword'), true),
+        })}
+      />
+
+      <Stack.Screen
+        name="AboutUs"
+        component={AboutUs}
+        options={({navigation}) => ({
+          header: () => getHeader(navigation, t('aboutUs'), true),
+        })}
+      />
+      {/* <Stack.Screen
         name="UsersPeople"
         component={UsersPeopleScreen}
         options={({navigation}) => ({
@@ -76,31 +100,17 @@ const UserStack = () => {
               },
             ),
         })}
-      />
-
+      /> */}
+      {/* 
       <Stack.Screen
         name="EvacPersonAdd"
         component={EvacPersonAddScreen}
         options={({navigation}) => ({
           header: () => getHeader(navigation, t('evacPersonAdd'), true),
         })}
-      />
-      <Stack.Screen
-        name="ChangePassword"
-        component={ChangePassword}
-        options={({navigation}) => ({
-          header: () => getHeader(navigation, t('changePassword'), true),
-        })}
-      />
-      <Stack.Screen
-        name="AboutUs"
-        component={AboutUs}
-        options={({navigation}) => ({
-          header: () => getHeader(navigation, t('aboutUs'), true),
-        })}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };
 
-export default UserStack;
+export default OperatorStack;

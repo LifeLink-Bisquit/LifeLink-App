@@ -6,11 +6,15 @@ import {getMedication} from '../../../services/api/parameter/getMedications';
 import Screen from '../../components/Screen/Screen';
 import Text from '../../components/Text/Text';
 import {styles} from './styles';
+import {getSpecialNeeds} from '../../../services/api/parameter/getSpecialNeeds';
+import {getProthesis} from '../../../services/api/parameter/getProsthesis';
 
 const SplashScreen = () => {
   useEffect(() => {
     getIllness();
     getMedication();
+    getSpecialNeeds();
+    getProthesis();
   }, []);
   return (
     <Screen useSafeArea={false} containerStyle={styles.splash}>

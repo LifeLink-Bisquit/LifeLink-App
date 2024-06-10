@@ -1,17 +1,17 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
-import HomeScreen from '../../ui/screens/main/HomeScreen';
-import ProfileScreen from '../../ui/screens/main/ProfileScreen';
-import {RootStackParamList} from '../routes';
-import HomeStack from './HomeStackNavigator';
-import {Colors} from '../../constants/colors';
 import {useTranslation} from 'react-i18next';
+import {View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import AttachLogo from '../../../assets/svgs/attach.svg';
 import HomeLogo from '../../../assets/svgs/home.svg';
 import ProfileLogo from '../../../assets/svgs/profile.svg';
-import AttachLogo from '../../../assets/svgs/attach.svg';
-import {View} from 'react-native';
+import {Colors} from '../../constants/colors';
 import Text from '../../ui/components/Text/Text';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import HomeScreen from '../../ui/screens/main/HomeScreen';
+import {RootStackParamList} from '../routes';
+import HomeStack from './HomeStackNavigator';
+import OperatorStack from './OperatorStackNavigator';
 import styles from './styles';
 
 const MainNavigator = () => {
@@ -79,10 +79,10 @@ const MainNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={OperatorStack}
         options={{
           tabBarLabel: t('profile'),
-          headerShown: true,
+          headerShown: false,
           header: () => getHeader(t('profile')),
           tabBarIcon: ({focused, color}) =>
             getIcon({focused, color}, 'profile'),

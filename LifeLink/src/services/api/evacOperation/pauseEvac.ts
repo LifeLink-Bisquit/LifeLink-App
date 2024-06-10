@@ -10,12 +10,12 @@ export const pauseEvacOperation = async (id: string, onSuccess: () => void) => {
   const token = storage.getString(STORAGE_KEYS.TOKEN);
 
   axios
-    .post(
+    .put(
       `${BASE_URL}/evacOperation/pauseEvac/${id}`,
       {},
       {
         headers: {
-          Authorization: `Bearer ${token}`, // Add the bearer token to the request headers
+          Authorization: `Bearer ${token}`,
         },
       },
     )
@@ -24,6 +24,7 @@ export const pauseEvacOperation = async (id: string, onSuccess: () => void) => {
       onSuccess();
     })
     .catch(error => {
+      console.log(error.response.status);
       Toast.show({
         type: 'error',
         text1: 'Error',
