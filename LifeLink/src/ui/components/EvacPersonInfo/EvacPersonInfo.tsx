@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import CrossIcon from '../../../../assets/svgs/cross.svg';
 import DownIcon from '../../../../assets/svgs/down.svg';
+import EditIcon from '../../../../assets/svgs/pencil.svg';
 import {Colors} from '../../../constants/colors';
 import {getEvacPersonStatusById} from '../../../services/api/constants';
 import Avatar from '../Avatar/Avatar';
@@ -16,7 +17,11 @@ import Spacer from '../Spacer/Spacer';
 import Text from '../Text/Text';
 import {EvacueeInfoProps} from './types';
 
-const EvacueeInfo: React.FC<EvacueeInfoProps> = ({evacPerson}) => {
+const EvacueeInfo: React.FC<EvacueeInfoProps> = ({
+  evacPerson,
+  onPress,
+  type,
+}) => {
   const [expanded, setExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -25,7 +30,7 @@ const EvacueeInfo: React.FC<EvacueeInfoProps> = ({evacPerson}) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={toggleExpand}>
+      <TouchableOpacity onPress={onPress ?? toggleExpand}>
         <View style={styles.innerContainer}>
           <Avatar text={evacPerson?.name ?? ''} size={80} />
           <View style={styles.infoContainer}>
@@ -35,13 +40,23 @@ const EvacueeInfo: React.FC<EvacueeInfoProps> = ({evacPerson}) => {
             <Text style={styles.text} fontSize="large">
               {getEvacPersonStatusById(evacPerson?.status ?? '')}
             </Text>
+            <Text style={styles.text} fontSize="large">
+              {evacPerson?.description ?? ''}
+            </Text>
           </View>
-          <DownIcon style={styles.icon} />
+          {type === 'edit' ? (
+            <EditIcon style={styles.icon} />
+          ) : (
+            <DownIcon style={styles.icon} />
+          )}
         </View>
       </TouchableOpacity>
       <Modal visible={expanded} animationType="fade" transparent={true}>
         <View style={styles.modalContainer}>
-          <ScrollView style={styles.modalContent}>
+          <ScrollView
+            style={styles.modalContent}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}>
             <View style={styles.details}>
               <Text fontSize="xLarge" style={styles.text}>
                 {'details'}
@@ -52,6 +67,11 @@ const EvacueeInfo: React.FC<EvacueeInfoProps> = ({evacPerson}) => {
                 <CrossIcon color={Colors.white} />
               </TouchableOpacity>
             </View>
+            <View>
+              <Text>{'description'}</Text>
+              <Text style={styles.text}>{evacPerson?.description}</Text>
+            </View>
+            <Spacer height={10} />
             <View>
               <Text>{'location'}</Text>
               <Text style={styles.text}>{evacPerson?.locationNote}</Text>

@@ -1,7 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
 import {getUser} from '../constants/app.utils';
-import {ADMIN_ROLE, PERSON_ROLE} from '../services/api/constants';
+import {PERSON_ROLE} from '../services/api/constants';
 import SplashScreen from '../ui/screens/SplashScreen';
 import useGeneralStore from '../zustand/generalStore';
 import AuthNavigator from './auth/AuthNavigator';
@@ -33,9 +33,6 @@ const Root = () => {
     <SplashScreen />
   ) : (
     <RootStack.Navigator screenOptions={{headerShown: false}}>
-      {
-        //TODO: Change it
-      }
       {isLoggedIn ? (
         getNavigatorByRole()
       ) : (

@@ -14,9 +14,7 @@ const ChangePassword = () => {
   const {goBack} = useNavigation();
 
   const handlePasswordChange = () => {
-    resetPassword({newPassword, oldPassword}).then(() => {
-      goBack();
-    });
+    resetPassword({newPassword, oldPassword}, () => goBack());
   };
 
   return (

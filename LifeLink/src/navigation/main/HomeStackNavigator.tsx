@@ -3,17 +3,20 @@ import React from 'react';
 import EvacProcessScreen from '../../ui/screens/main/EvacProcessScreen/EvacProcessScreen';
 import MapScreen from '../../ui/screens/main/MapScreen';
 import LandingScreen from '../../ui/screens/main/LandingScreen/LandingScreen';
-import {MainStackParamList} from '../routes';
+import {MainScreens, MainStackParamList} from '../routes';
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
 const HomeStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName={'LandingScreen'}
+      initialRouteName={MainScreens.Landing}
       screenOptions={{headerShown: false}}>
-      <Stack.Screen name="LandingScreen" component={LandingScreen} />
-      <Stack.Screen name="MapScreen" component={MapScreen} />
-      <Stack.Screen name="EvacProcessScreen" component={EvacProcessScreen} />
+      <Stack.Screen name={MainScreens.Landing} component={LandingScreen} />
+      <Stack.Screen name={MainScreens.Map} component={MapScreen} />
+      <Stack.Screen
+        name={MainScreens.EvacProcess}
+        component={EvacProcessScreen}
+      />
     </Stack.Navigator>
   );
 };

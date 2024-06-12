@@ -1,36 +1,40 @@
-import React, {useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {getLast5EarthQuakes} from '../../../services/kandilli_api/getLast5';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import {Earthquake} from '../../../services/kandilli_api/types';
 import Text from '../Text/Text';
+import {Colors} from '../../../constants/colors';
 
-const EarthquakeDetails: React.FC = () => {
-  const [earthquakes, setEarthquakes] = useState<Earthquake[]>([]);
+interface EarthquakeDeatilsProps {
+  earthquakes: Earthquake[];
+}
 
-  useEffect(() => {
-    getLast5EarthQuakes(data => {
-      setEarthquakes(data);
-    });
-  }, []);
-
+const EarthquakeDetails: React.FC<EarthquakeDeatilsProps> = ({earthquakes}) => {
   return (
     <View style={styles.container}>
       {earthquakes.map(earthquake => (
         <View key={earthquake._id} style={styles.card}>
           <View style={styles.row}>
-            <Text style={styles.label}>{'time'}</Text>
+            <Text style={styles.label} fontSize="large">
+              {'time'}
+            </Text>
             <Text style={styles.value}>{earthquake.date_time}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>{'location'}</Text>
+            <Text style={styles.label} fontSize="large">
+              {'location'}
+            </Text>
             <Text style={styles.value}>{earthquake.title}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>{'depth'}</Text>
+            <Text style={styles.label} fontSize="large">
+              {'depth'}
+            </Text>
             <Text style={styles.value}>{earthquake.depth}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.label}>{'magnitude'}</Text>
+            <Text style={styles.label} fontSize="large">
+              {'magnitude'}
+            </Text>
             <Text style={styles.value}>{earthquake.mag}</Text>
           </View>
         </View>
@@ -51,7 +55,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: Colors.primary,
     padding: 15,
     marginBottom: 15,
     borderRadius: 10,
@@ -65,12 +69,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   label: {
-    fontSize: 16,
-    fontWeight: 'bold',
     marginRight: 10,
+    color: Colors.white,
   },
   value: {
-    fontSize: 16,
+    color: Colors.white,
   },
 });
 

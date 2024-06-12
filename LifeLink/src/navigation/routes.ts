@@ -1,11 +1,12 @@
 import {
+  ActiveOperationResponse,
   EvacOperation,
   EvacPerson,
   EvacPersonResponse,
 } from '../services/api/types/app.types';
 
 export const AUTH_NAVIGATOR = 'AuthNavigator';
-export const HOME_NAVIGATOR = 'TabNavigator';
+export const HOME_NAVIGATOR = 'HomeNavigator';
 
 export enum AuthScreens {
   Login = 'Login',
@@ -13,47 +14,84 @@ export enum AuthScreens {
 }
 
 export type AuthStackParamList = {
-  Login: undefined;
-  Register: undefined;
+  [AuthScreens.Login]: undefined;
+  [AuthScreens.Register]: undefined;
 };
 
 export enum MainScreens {
   Home = 'Home',
-  Profile = 'Profile',
-  Map = 'Map',
+  Profile = 'ProfileTab',
+  Map = 'MapTab',
   EvacProcess = 'EvacProcess',
+  Landing = 'Landing',
 }
 
 export type MainStackParamList = {
-  EvacProcess: undefined;
-  LandingScreen: undefined;
-  MapScreen: undefined;
-  EvacProcessScreen: {data: EvacPerson};
-  EvacutaionHistory: {data: EvacOperation[]};
+  [MainScreens.Home]: undefined;
+  [MainScreens.Profile]: undefined;
+  [MainScreens.Map]: undefined;
+  [MainScreens.EvacProcess]: {data: ActiveOperationResponse};
+  [MainScreens.Landing]: undefined;
+  EvacProcessDetail: {data: EvacPerson};
+  EvacuationHistory: {data: EvacOperation[]};
 };
 
 export type RootStackParamList = {
-  Home: undefined;
-  Profile: undefined;
-  Map: undefined;
+  [MainScreens.Home]: undefined;
+  [MainScreens.Profile]: undefined;
+  [MainScreens.Map]: undefined;
 };
 
 export type UserStackParamList = {
-  Home: undefined;
-  Profile: undefined;
+  [MainScreens.Home]: undefined;
+  [MainScreens.Profile]: undefined;
 };
+
+export enum UserProfileScreens {
+  UserProfile = 'UserProfile',
+  UsersPeople = 'UsersPeople',
+  EvacPersonAdd = 'EvacPersonAdd',
+  EvacPersonEdit = 'EvacPersonEdit',
+  ChangePassword = 'ChangePassword',
+  AboutUs = 'AboutUs',
+}
 
 export type UserProfileStackParamList = {
-  UserProfileScreen: undefined;
-  UsersPeople: {data: EvacPersonResponse};
-  EvacPersonAdd: undefined;
-  ChangePassword: undefined;
-  AboutUs: undefined;
+  [UserProfileScreens.UserProfile]: undefined;
+  [UserProfileScreens.UsersPeople]: {data: EvacPersonResponse};
+  [UserProfileScreens.EvacPersonAdd]: undefined;
+  [UserProfileScreens.EvacPersonEdit]: {person: EvacPerson};
+  [UserProfileScreens.ChangePassword]: undefined;
+  [UserProfileScreens.AboutUs]: undefined;
 };
 
+export enum OperatorScreens {
+  Profile = 'Profile',
+  EvacuationHistory = 'EvacuationHistory',
+  ChangePassword = 'ChangePassword',
+  AboutUs = 'AboutUs',
+}
+
 export type OperatorStackParamList = {
-  ProfileScreen: undefined;
-  EvacutaionHistory: undefined;
-  ChangePassword: undefined;
-  AboutUs: undefined;
+  [OperatorScreens.Profile]: undefined;
+  [OperatorScreens.EvacuationHistory]: {items: EvacOperation[]};
+  [OperatorScreens.ChangePassword]: undefined;
+  [OperatorScreens.AboutUs]: undefined;
+};
+
+export const AppPaths = {
+  Auth: {
+    Navigator: AUTH_NAVIGATOR,
+    Screens: AuthScreens,
+  },
+  Home: {
+    Navigator: HOME_NAVIGATOR,
+    Screens: MainScreens,
+  },
+  UserProfile: {
+    Screens: UserProfileScreens,
+  },
+  Operator: {
+    Screens: OperatorScreens,
+  },
 };

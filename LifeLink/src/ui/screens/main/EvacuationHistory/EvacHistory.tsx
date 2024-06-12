@@ -1,32 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {getEvacPerson} from '../../../../services/api/evacPerson/getEvacPerson';
-import {EvacOperation} from '../../../../services/api/types/app.types';
-import {useRoute} from '@react-navigation/native';
-import Screen from '../../../components/Screen/Screen';
-import EvacueeInfo from '../../../components/EvacPersonInfo/EvacPersonInfo';
-import Text from '../../../components/Text/Text';
-import Spacer from '../../../components/Spacer/Spacer';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
+import {StyleSheet, View} from 'react-native';
+import {
+  OperatorScreens,
+  OperatorStackParamList,
+} from '../../../../navigation/routes';
+import EvacueeInfo from '../../../components/EvacPersonInfo/EvacPersonInfo';
+import Screen from '../../../components/Screen/Screen';
+import Spacer from '../../../components/Spacer/Spacer';
+import Text from '../../../components/Text/Text';
 
 const EvacHistory: React.FC = () => {
-  const {params} = useRoute();
-  const [evacPersons, setEvacPersons] = useState<{[key: string]: any}>({});
+  const {params} =
+    useRoute<
+      RouteProp<OperatorStackParamList, OperatorScreens.EvacuationHistory>
+    >();
   const items = params?.items;
-  useEffect(() => {
-    const fetchData = async () => {
-      for (const item of items) {
-        getEvacPerson(item.evacPersonId, data => {
-          setEvacPersons(prevState => ({
-            ...prevState,
-            [item.evacPersonId]: data,
-          }));
-        });
-      }
-    };
 
-    fetchData();
-  }, [items]);
+  console.log(items);
 
   const {t} = useTranslation();
 
@@ -62,9 +54,7 @@ const EvacHistory: React.FC = () => {
           <Spacer height={10} />
           <Text>{'details'}</Text>
           <Spacer height={10} />
-          {evacPersons[item.evacPersonId] && (
-            <EvacueeInfo evacPerson={evacPersons[item.evacPersonId]} />
-          )}
+          {item.evacPerson && <EvacueeInfo evacPerson={item.evacPerson} />}
           <View style={styles.separator} />
         </View>
       ))}

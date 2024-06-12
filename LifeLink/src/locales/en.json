@@ -1,5 +1,6 @@
 {
     "login": "Login",
+    "loginInfo": "Welcome to Life Link. Please fill in the following information to login.",
     "register": "Register",
     "toRegister": "Don't have an account? Register",
     "email": "Email",
@@ -30,12 +31,16 @@
     "phone": "Phone",
     "name": "Name",
     "evacPersonAdd": "Add Person",
+    "evacPersonEdit": "Edit Person",
     "chooseMedication": "Choose Medication",
     "chooseIllness": "Choose Illness",
+    "chooseSpecialNeeds": "Choose Special Needs",
+    "chooseProsthesis": "Choose Prostheses",
     "savePerson": "Save Person",
     "description": "Description",
     "usersPeople": "My People",
     "linkToLife": "Link to Life",
+    "getDirections": "Get Directions",
     "waitForDataFetch": "Please wait while we fetch your data",
     "save" : "Save",
 
@@ -67,5 +72,7 @@
     "last5earthquakes": "Last 5 Earthquakes",
     "time": "Time",
     "magnitude": "Magnitude",
-    "depth": "Depth"
+    "depth": "Depth",
+
+    "update": "Update"
 }

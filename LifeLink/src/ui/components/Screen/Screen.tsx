@@ -1,6 +1,7 @@
 import React, {ReactNode} from 'react';
 import {
   KeyboardAvoidingView,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
   StyleProp,
@@ -18,6 +19,7 @@ interface ScreenProps {
   containerStyle?: StyleProp<ViewStyle>;
   useKeyboardAvoidingView?: boolean;
   useScrollView?: boolean;
+  onRefresh?: () => void;
 }
 
 const Screen = ({
@@ -26,6 +28,7 @@ const Screen = ({
   useKeyboardAvoidingView = false,
   useScrollView = false,
   containerStyle,
+  onRefresh,
 }: ScreenProps) => {
   const isLoading = useGeneralStore(state => state.loading);
 
@@ -44,7 +47,13 @@ const Screen = ({
     );
   } else if (useScrollView) {
     return (
-      <ScrollView style={[styles.container]}>
+      <ScrollView
+        style={[styles.container]}
+        refreshControl={
+          onRefresh ? (
+            <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+          ) : undefined
+        }>
         <KeyboardAvoidingView
           enabled={useKeyboardAvoidingView}
           behavior="padding"

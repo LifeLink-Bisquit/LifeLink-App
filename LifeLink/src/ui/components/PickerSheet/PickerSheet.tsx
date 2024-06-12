@@ -1,5 +1,5 @@
 import {BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useRef, useState, useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import TickIcon from '../../../../assets/svgs/tick.svg';
@@ -11,15 +11,24 @@ interface PickerSheetProps {
   items: Item[];
   onSelect: (ids: any[]) => void;
   label: string;
+  selectedItems?: any[];
 }
 
-// PickerSheet component
-const PickerSheet: React.FC<PickerSheetProps> = ({items, onSelect, label}) => {
-  // ref for bottom sheet
+const PickerSheet: React.FC<PickerSheetProps> = ({
+  items,
+  onSelect,
+  label,
+  selectedItems = [],
+}) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
 
-  // state for selected items
-  const [selectedIds, setSelectedIds] = useState<any[]>([]);
+  const [selectedIds, setSelectedIds] = useState<any[]>(selectedItems);
+
+  useEffect(() => {
+    if (selectedItems.length > 0) {
+      setSelectedIds(selectedItems);
+    }
+  }, [selectedItems]);
 
   // handle open bottom sheet
   const handleOpen = useCallback(() => {

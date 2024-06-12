@@ -2,10 +2,10 @@ import axios from 'axios';
 import Toast from 'react-native-toast-message';
 import {BASE_URL, STORAGE_KEYS, storage} from '../../../constants/app.utils';
 import useGeneralStore from '../../../zustand/generalStore';
-import {EvacPersonResponse} from '../types/app.types';
+import {EvacOperation} from '../types/app.types';
 
 export const getAllEvacOperations = async (
-  onSuccess: (data: EvacPersonResponse) => void,
+  onSuccess: (data: EvacOperation[]) => void,
 ) => {
   const setLoading = useGeneralStore.getState().setLoadingState;
   setLoading(true);
@@ -19,15 +19,14 @@ export const getAllEvacOperations = async (
       },
     })
     .then(response => {
-      onSuccess(response.data as EvacPersonResponse);
+      onSuccess(response.data.items as EvacOperation[]);
       setLoading(false);
     })
     .catch(error => {
-      console.log(error.status);
       Toast.show({
-        type: 'error',
+        type: 'info',
         text1: 'Error',
-        text2: error.response,
+        text2: error.response.data.title,
       });
       setLoading(false);
     });

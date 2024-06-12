@@ -8,9 +8,7 @@ export const startEvacOperation = async (id: string, onSuccess: () => void) => {
   setLoading(true);
 
   const token = storage.getString(STORAGE_KEYS.TOKEN);
-
-  console.log('token', token);
-  console.log('url', `${BASE_URL}/evacOperation/startEvac/${id}`);
+  console.log(id);
 
   axios
     .post(
@@ -27,7 +25,6 @@ export const startEvacOperation = async (id: string, onSuccess: () => void) => {
       onSuccess();
     })
     .catch(error => {
-      console.log(JSON.stringify(error.response.status));
       Toast.show({
         type: 'error',
         text1: 'Error',

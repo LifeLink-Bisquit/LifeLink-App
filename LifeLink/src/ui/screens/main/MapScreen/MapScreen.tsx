@@ -1,24 +1,24 @@
 /* eslint-disable react-native/no-inline-styles */
 import BottomSheet, {
   BottomSheetBackdrop,
+  BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useRef, useState} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import GetLocation from 'react-native-get-location';
 import MapView from 'react-native-map-clustering';
 import {Marker} from 'react-native-maps';
 import {openMaps} from '../../../../constants/map.utils';
+import {startEvacOperation} from '../../../../services/api/evacOperation/startEvac';
 import {getAllEvacPerson} from '../../../../services/api/evacPerson/getAllEvacPerson';
 import {EvacPerson} from '../../../../services/api/types/app.types';
 import Button from '../../../components/Button/Button';
 import EvacueeInfo from '../../../components/EvacPersonInfo/EvacPersonInfo';
-import Text from '../../../components/Text/Text';
-import {Coordinate} from './constans';
-import {startEvacOperation} from '../../../../services/api/evacOperation/startEvac';
-import {getActiveOperation} from '../../../../services/api/evacOperation/getActiveOperation';
 import Screen from '../../../components/Screen/Screen';
+import Spacer from '../../../components/Spacer/Spacer';
+import {BottomSheetDefaultBackdropProps} from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 
 const INITIAL_REGION = {
   latitude: 42.5,
@@ -27,7 +27,9 @@ const INITIAL_REGION = {
   longitudeDelta: 8.5,
 };
 
-const CustomBackdrop = props => {
+const CustomBackdrop = (
+  props: React.JSX.IntrinsicAttributes & BottomSheetDefaultBackdropProps,
+) => {
   return (
     <BottomSheetBackdrop
       {...props}
@@ -41,12 +43,6 @@ const CustomBackdrop = props => {
 
 const MapScreen: React.FC = () => {
   const {goBack} = useNavigation();
-  const [selectedMarker, setSelectedMarker] = useState<Coordinate>({
-    latitude: 0,
-    longitude: 0,
-  });
-  const [markerStatus, setMarkerStatus] = useState<string>('green');
-  const [buttonLoading, setButtonLoading] = useState<boolean>(false);
   const mapRef = useRef<MapView>(null);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [clusterLocation, setClusterLocation] = useState<EvacPerson[]>();
@@ -59,15 +55,9 @@ const MapScreen: React.FC = () => {
   >('info');
 
   const handleMarkerPress = (user: EvacPerson) => {
-    setSelectedMarker(user.location);
     setBottomSheetContent('info');
     setSelectedUser(user);
     bottomSheetRef.current?.expand();
-  };
-
-  const handleChangeStatus = (status: string) => {
-    setMarkerStatus(status);
-    bottomSheetRef.current?.collapse();
   };
 
   const getCurrentLocation = async () => {
@@ -146,62 +136,51 @@ const MapScreen: React.FC = () => {
         index={-1}
         backdropComponent={CustomBackdrop}
         enablePanDownToClose={true}>
-        <BottomSheetView style={styles.bottomSheetContainer}>
-          {bottomSheetContent === 'info' ? (
-            <>
-              <EvacueeInfo evacPerson={selectedUser} />
-
-              <View
-                style={{
-                  flexDirection: 'row',
-                  gap: 20,
-                  paddingHorizontal: 10,
-                  marginBottom: 20,
-                }}>
-                <Button
-                  props={{disabled: buttonLoading}}
-                  isLoading={buttonLoading}
+        {bottomSheetContent === 'info' ? (
+          <BottomSheetView style={styles.bottomSheetContainer}>
+            <EvacueeInfo evacPerson={selectedUser} />
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: 20,
+                paddingHorizontal: 10,
+                marginBottom: 20,
+              }}>
+              <Button
+                onPress={() => {
+                  startEvacOperation(selectedUser.id, () => {
+                    goBack();
+                  });
+                }}
+                label="linkToLife"
+              />
+              <Button
+                onPress={() => {
+                  openMaps(
+                    {latitude: 41.0322, longitude: 29.0319},
+                    'Destination',
+                  );
+                }}
+                label="getDirections"
+              />
+            </View>
+          </BottomSheetView>
+        ) : (
+          <BottomSheetScrollView style={styles.bottomSheetContainer}>
+            <Spacer height={50} />
+            {clusterLocation &&
+              clusterLocation.map((item, index) => (
+                <EvacueeInfo
+                  key={index}
+                  evacPerson={item}
                   onPress={() => {
-                    startEvacOperation(selectedUser.id, () => {
-                      goBack();
-                    });
+                    handleMarkerPress(item);
                   }}
-                  label="linkToLife"
                 />
-                <Button
-                  onPress={() => {
-                    openMaps(
-                      {latitude: 41.0322, longitude: 29.0319},
-                      'Destination',
-                    );
-                  }}
-                  label="Get Directions"
-                />
-              </View>
-            </>
-          ) : (
-            <>
-              {clusterLocation &&
-                clusterLocation.map(item => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      handleMarkerPress(item);
-                    }}
-                    key={item.id}
-                    style={{
-                      flexDirection: 'row',
-                      paddingHorizontal: 15,
-                      paddingVertical: 10,
-                      gap: 10,
-                    }}>
-                    <Text>{item.name}</Text>
-                    <Text>{item.age}</Text>
-                    <Text>{item.description}</Text>
-                  </TouchableOpacity>
-                ))}
-            </>
-          )}
-        </BottomSheetView>
+              ))}
+            <Spacer height={50} />
+          </BottomSheetScrollView>
+        )}
       </BottomSheet>
     </Screen>
   );

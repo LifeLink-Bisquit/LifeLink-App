@@ -28,11 +28,11 @@ export const completeEvac = async (
       onSuccess();
     })
     .catch(error => {
+      setLoading(false);
       Toast.show({
         type: 'error',
         text1: 'Error',
         text2: error.response?.data?.title,
       });
-      setLoading(false);
     });
 };

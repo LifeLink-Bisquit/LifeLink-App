@@ -3,13 +3,10 @@ import {useTranslation} from 'react-i18next';
 import {Alert, Linking} from 'react-native';
 import AidIcon from '../../../../../assets/svgs/aid.svg';
 import ChangePasswordIcon from '../../../../../assets/svgs/change_password.svg';
-import DeleteIcon from '../../../../../assets/svgs/delete.svg';
-import EditProfileIcon from '../../../../../assets/svgs/edit_profile.svg';
 import EnFlag from '../../../../../assets/svgs/en.svg';
 import InfoIcon from '../../../../../assets/svgs/info.svg';
 import LanguageIcon from '../../../../../assets/svgs/language.svg';
 import LogoutIcon from '../../../../../assets/svgs/logout.svg';
-import StatusIcon from '../../../../../assets/svgs/status.svg';
 import TurkeyFlag from '../../../../../assets/svgs/tr.svg';
 import {
   STORAGE_KEYS,
@@ -21,16 +18,17 @@ import {
   Languages,
   switchLanguage,
 } from '../../../../constants/translations.utils';
+import {useOperatorNavigation} from '../../../../hooks/useOperatorNavigation';
+import {OperatorScreens} from '../../../../navigation/routes';
+import {EMERGENCY_PHONE_NUMBER} from '../../../../services/api/constants';
+import {getAllEvacOperations} from '../../../../services/api/evacOperation/getAllEvacOperations';
 import useGeneralStore from '../../../../zustand/generalStore';
 import {useLocalizationStore} from '../../../../zustand/translationStore';
+import Avatar from '../../../components/Avatar/Avatar';
 import ListItem from '../../../components/ListItem/ListItem';
 import Screen from '../../../components/Screen/Screen';
 import Spacer from '../../../components/Spacer/Spacer';
 import {Email, Name, SettingsContainer} from './styles';
-import Avatar from '../../../components/Avatar/Avatar';
-import {useNavigation} from '@react-navigation/native';
-import {getAllEvacOperations} from '../../../../services/api/evacOperation/getAllEvacOperations';
-import {EMERGENCY_PHONE_NUMBER} from '../../../../services/api/constants';
 
 interface ProfileProps {
   navigation: any;
@@ -38,7 +36,7 @@ interface ProfileProps {
 
 const ProfileScreen: React.FC<ProfileProps> = () => {
   const userDetails = getUser();
-  const {navigate} = useNavigation();
+  const {navigate} = useOperatorNavigation<OperatorScreens.Profile>();
 
   const {language} = useLocalizationStore();
   const [currentLanguage, setCurrentLanguage] = useState(
@@ -73,16 +71,16 @@ const ProfileScreen: React.FC<ProfileProps> = () => {
 
   const handleEvacHistory = () => {
     getAllEvacOperations(data => {
-      navigate('EvacutaionHistory', {items: data.items});
+      navigate(OperatorScreens.EvacuationHistory, {items: data});
     });
   };
 
   const handleChangePassword = () => {
-    navigate('ChangePassword');
+    navigate(OperatorScreens.ChangePassword);
   };
 
   const handleAboutUs = () => {
-    navigate('AboutUs');
+    navigate(OperatorScreens.AboutUs);
   };
 
   const handleCallHelp = () => {
@@ -139,7 +137,7 @@ const ProfileScreen: React.FC<ProfileProps> = () => {
         <ListItem
           title="aboutUs"
           leftItem={<InfoIcon />}
-          onPress={handleLogout}
+          onPress={handleAboutUs}
         />
         <ListItem
           title="logout"

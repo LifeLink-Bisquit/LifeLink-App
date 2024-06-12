@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   screen: {justifyContent: 'space-evenly'},
-  logo: {width: 120, height: 120},
+  logo: {width: 150, height: 150},
   input: {gap: 10},
   languageButton: {
     borderWidth: 1,

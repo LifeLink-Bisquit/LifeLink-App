@@ -12,11 +12,12 @@ import {Colors} from '../../constants/colors';
 import Text from '../../ui/components/Text/Text';
 import UserProfileScreen from '../../ui/screens/user/UserProfileScreen/UserProfileScreen';
 import UsersPeopleScreen from '../../ui/screens/user/UsersPeopleScreen';
-import {UserProfileStackParamList} from '../routes';
+import {UserProfileScreens, UserProfileStackParamList} from '../routes';
 import styles from './styles';
 import EvacPersonAddScreen from '../../ui/screens/user/EvacPersonAddScreen/EvacPersonAddScreen';
 import ChangePassword from '../../ui/screens/main/ChangePassword/ChangePassword';
 import AboutUs from '../../ui/screens/main/AboutUs/AboutUs';
+import EvacPersonEditScreen from '../../ui/screens/user/EvacPersonEdit/EvacPersonEdit';
 
 const Stack = createNativeStackNavigator<UserProfileStackParamList>();
 
@@ -50,19 +51,19 @@ const UserStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="UserProfileScreen"
+      initialRouteName={UserProfileScreens.UserProfile}
       screenOptions={{
         headerShown: true,
       }}>
       <Stack.Screen
-        name="UserProfileScreen"
+        name={UserProfileScreens.UserProfile}
         component={UserProfileScreen}
         options={({navigation}) => ({
           header: () => getHeader(navigation, t('profile')),
         })}
       />
       <Stack.Screen
-        name="UsersPeople"
+        name={UserProfileScreens.UsersPeople}
         component={UsersPeopleScreen}
         options={({navigation}) => ({
           header: () =>
@@ -79,21 +80,28 @@ const UserStack = () => {
       />
 
       <Stack.Screen
-        name="EvacPersonAdd"
+        name={UserProfileScreens.EvacPersonAdd}
         component={EvacPersonAddScreen}
         options={({navigation}) => ({
           header: () => getHeader(navigation, t('evacPersonAdd'), true),
         })}
       />
       <Stack.Screen
-        name="ChangePassword"
+        name={UserProfileScreens.EvacPersonEdit}
+        component={EvacPersonEditScreen}
+        options={({navigation}) => ({
+          header: () => getHeader(navigation, t('evacPersonEdit'), true),
+        })}
+      />
+      <Stack.Screen
+        name={UserProfileScreens.ChangePassword}
         component={ChangePassword}
         options={({navigation}) => ({
           header: () => getHeader(navigation, t('changePassword'), true),
         })}
       />
       <Stack.Screen
-        name="AboutUs"
+        name={UserProfileScreens.AboutUs}
         component={AboutUs}
         options={({navigation}) => ({
           header: () => getHeader(navigation, t('aboutUs'), true),

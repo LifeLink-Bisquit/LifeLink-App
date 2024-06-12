@@ -1,5 +1,6 @@
 {
     "login": "Giriş Yap",
+    "loginInfo": "Life Link' e hoş geldiniz! Lütfen giriş yapın.",
     "register": "Kayıt Ol",
     "toRegister": "Henüz hesabınız yok mu? Kayıt olun!",
     "email": "E-posta",
@@ -30,6 +31,7 @@
     "phone": "Telefon Numarası" ,
     "name": "İsim - Soyisim",
     "evacPersonAdd": "Kişi Ekle",
+    "evacPersonEdit": "Kişi Düzenle",
     "chooseMedication": "İlaç(lar) Seçiniz",
     "chooseIllness": "Hastalık(lar) Seçiniz",
     "chooseSpecialNeeds": "Özel İhtiyaç(lar) Seçiniz",
@@ -38,7 +40,8 @@
     "description": "Açıklama",
     "usersPeople": "Kişilerim",
     "linkToLife": "Hayata Bağla",
-    "waitForDataFetch": "Veriler yükleniyor...",
+    "getDirections": "Yol Tarifi Al",
+    "waitForDataFetch": "Veriler yükleniyor...\nLütfen bekleyin...",
     "save" : "Kaydet",
 
     "SAFE": "GÜVENLİ",
@@ -69,6 +72,8 @@
     "last5earthquakes": "Son 5 Deprem",
     "time": "Zaman",
     "magnitude": "Şiddet",
-    "depth": "Derinlik"
+    "depth": "Derinlik",
+
+    "update": "Güncelle"
     
 }

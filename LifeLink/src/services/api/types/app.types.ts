@@ -66,6 +66,6 @@ export interface EvacOperation {
   modifierId: string;
   modifyTime: string;
   fieldOperatorId: string;
-  evacPersonId: string;
+  evacPerson: EvacPerson;
   status: string;
 }

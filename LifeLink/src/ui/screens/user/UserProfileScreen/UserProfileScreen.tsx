@@ -1,10 +1,7 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Alert} from 'react-native';
 import ChangePasswordIcon from '../../../../../assets/svgs/change_password.svg';
-import DeleteIcon from '../../../../../assets/svgs/delete.svg';
-import EditProfileIcon from '../../../../../assets/svgs/edit_profile.svg';
 import EnFlag from '../../../../../assets/svgs/en.svg';
 import InfoIcon from '../../../../../assets/svgs/info.svg';
 import LanguageIcon from '../../../../../assets/svgs/language.svg';
@@ -21,14 +18,16 @@ import {
   Languages,
   switchLanguage,
 } from '../../../../constants/translations.utils';
+import {useUserProfileNavigation} from '../../../../hooks/useUserProfileNavigation';
+import {UserProfileScreens} from '../../../../navigation/routes';
 import {getAllEvacPerson} from '../../../../services/api/evacPerson/getAllEvacPerson';
 import useGeneralStore from '../../../../zustand/generalStore';
 import {useLocalizationStore} from '../../../../zustand/translationStore';
+import Avatar from '../../../components/Avatar/Avatar';
 import ListItem from '../../../components/ListItem/ListItem';
 import Screen from '../../../components/Screen/Screen';
 import Spacer from '../../../components/Spacer/Spacer';
 import {Email, Name, SettingsContainer} from './styles';
-import Avatar from '../../../components/Avatar/Avatar';
 
 interface ProfileProps {
   navigation: any;
@@ -37,7 +36,7 @@ interface ProfileProps {
 const UserProfileScreen: React.FC<ProfileProps> = () => {
   const userDetails = getUser();
 
-  const navigation = useNavigation();
+  const {navigate} = useUserProfileNavigation<UserProfileScreens.UserProfile>();
 
   const {language} = useLocalizationStore();
   const [currentLanguage, setCurrentLanguage] = useState(
@@ -71,15 +70,17 @@ const UserProfileScreen: React.FC<ProfileProps> = () => {
   };
 
   const navigateToMyPeople = () => {
-    getAllEvacPerson(data => navigation.navigate('UsersPeople', {data: data}));
+    getAllEvacPerson(data =>
+      navigate(UserProfileScreens.UsersPeople, {data: data}),
+    );
   };
 
   const handleChangePassword = () => {
-    navigation.navigate('ChangePassword');
+    navigate(UserProfileScreens.ChangePassword);
   };
 
   const handleAboutUs = () => {
-    navigation.navigate('AboutUs');
+    navigate(UserProfileScreens.AboutUs);
   };
 
   return (
@@ -97,11 +98,11 @@ const UserProfileScreen: React.FC<ProfileProps> = () => {
       <Name>{userDetails.name}</Name>
       <Email>{userDetails.email}</Email>
       <SettingsContainer>
-        <ListItem
+        {/* <ListItem
           title="editProfile"
           leftItem={<EditProfileIcon />}
           onPress={handleLogout}
-        />
+        /> */}
         <ListItem
           title="changePassword"
           leftItem={<ChangePasswordIcon />}

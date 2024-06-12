@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Modal, StyleSheet} from 'react-native';
 import {getLast5EarthQuakes} from '../../../../services/kandilli_api/getLast5';
+import {Earthquake} from '../../../../services/kandilli_api/types';
 import EarthquakeDetails from '../../../components/EarthquakeDetails/EarthquakeDeatils';
 import Screen from '../../../components/Screen/Screen';
 import Spacer from '../../../components/Spacer/Spacer';
@@ -45,15 +46,31 @@ const HomeScreen = () => {
     setShowStoryViewer(true);
   };
 
+  const [earthquakes, setEarthquakes] = useState<Earthquake[]>();
+
+  const handleEarthquakes = () => {
+    getLast5EarthQuakes(data => {
+      setEarthquakes(data);
+    });
+  };
+
+  useEffect(() => {
+    handleEarthquakes();
+  }, []);
+
   return (
-    <Screen containerStyle={styles.container} useScrollView useSafeArea={false}>
+    <Screen
+      containerStyle={styles.container}
+      useScrollView
+      useSafeArea={false}
+      onRefresh={handleEarthquakes}>
       <Spacer height={20} />
       <SubHeader value="needToKnow" />
       <StoryPreview stories={stories} onStoryPress={handleStoryPress} />
 
       <SubHeader value="last5earthquakes" />
       <Spacer height={10} />
-      <EarthquakeDetails />
+      <EarthquakeDetails earthquakes={earthquakes ?? []} />
       <Modal
         visible={showStoryViewer}
         transparent={true}

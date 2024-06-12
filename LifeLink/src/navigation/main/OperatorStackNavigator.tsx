@@ -16,7 +16,7 @@ import AboutUs from '../../ui/screens/main/AboutUs/AboutUs';
 import ChangePassword from '../../ui/screens/main/ChangePassword/ChangePassword';
 import EvacHistory from '../../ui/screens/main/EvacuationHistory/EvacHistory';
 import ProfileScreen from '../../ui/screens/main/ProfileScreen';
-import {OperatorStackParamList} from '../routes';
+import {OperatorScreens, OperatorStackParamList} from '../routes';
 
 const Stack = createNativeStackNavigator<OperatorStackParamList>();
 
@@ -50,12 +50,12 @@ const OperatorStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="ProfileScreen"
+      initialRouteName={OperatorScreens.Profile}
       screenOptions={{
         headerShown: true,
       }}>
       <Stack.Screen
-        name="ProfileScreen"
+        name={OperatorScreens.Profile}
         component={ProfileScreen}
         options={({navigation}) => ({
           header: () => getHeader(navigation, t('profile')),
@@ -63,7 +63,7 @@ const OperatorStack = () => {
       />
 
       <Stack.Screen
-        name="EvacutaionHistory"
+        name={OperatorScreens.EvacuationHistory}
         component={EvacHistory}
         options={({navigation}) => ({
           header: () => getHeader(navigation, t('evacuationHistory'), true),
@@ -71,7 +71,7 @@ const OperatorStack = () => {
       />
 
       <Stack.Screen
-        name="ChangePassword"
+        name={OperatorScreens.ChangePassword}
         component={ChangePassword}
         options={({navigation}) => ({
           header: () => getHeader(navigation, t('changePassword'), true),
@@ -79,36 +79,12 @@ const OperatorStack = () => {
       />
 
       <Stack.Screen
-        name="AboutUs"
+        name={OperatorScreens.AboutUs}
         component={AboutUs}
         options={({navigation}) => ({
           header: () => getHeader(navigation, t('aboutUs'), true),
         })}
       />
-      {/* <Stack.Screen
-        name="UsersPeople"
-        component={UsersPeopleScreen}
-        options={({navigation}) => ({
-          header: () =>
-            getHeader(
-              navigation,
-              t('usersPeople'),
-              true,
-              <PlusIcon color={Colors.white} />,
-              () => {
-                navigation.navigate('EvacPersonAdd');
-              },
-            ),
-        })}
-      /> */}
-      {/* 
-      <Stack.Screen
-        name="EvacPersonAdd"
-        component={EvacPersonAddScreen}
-        options={({navigation}) => ({
-          header: () => getHeader(navigation, t('evacPersonAdd'), true),
-        })}
-      /> */}
     </Stack.Navigator>
   );
 };

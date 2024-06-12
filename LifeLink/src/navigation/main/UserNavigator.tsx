@@ -9,7 +9,7 @@ import ProfileLogo from '../../../assets/svgs/profile.svg';
 import {Colors} from '../../constants/colors';
 import Text from '../../ui/components/Text/Text';
 import HomeScreen from '../../ui/screens/main/HomeScreen';
-import {UserStackParamList} from '../routes';
+import {MainScreens, UserStackParamList} from '../routes';
 import UserStack from './UserStackNavigator';
 import styles from './styles';
 
@@ -59,7 +59,7 @@ const UserNavigator = () => {
         tabBarActiveTintColor: Colors.secondary,
       }}>
       <Tab.Screen
-        name="Home"
+        name={MainScreens.Home}
         component={HomeScreen}
         options={{
           headerShown: true,
@@ -70,7 +70,7 @@ const UserNavigator = () => {
       />
 
       <Tab.Screen
-        name="Profile"
+        name={MainScreens.Profile}
         component={UserStack}
         options={{
           tabBarLabel: t('profile'),

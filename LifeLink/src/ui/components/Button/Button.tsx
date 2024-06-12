@@ -10,6 +10,7 @@ interface ButtonProps {
   label: string;
   props?: TouchableOpacityProps;
   fullWidth?: boolean;
+  variant?: 'primary' | 'secondary';
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,17 +19,30 @@ const Button: React.FC<ButtonProps> = ({
   isLoading,
   fullWidth,
   props,
+  variant = 'primary',
 }) => {
   return (
     <TouchableOpacity
-      // eslint-disable-next-line react-native/no-inline-styles
-      style={[styles.button, {width: fullWidth ? '100%' : 'auto'}]}
+      style={[
+        styles.button,
+        // eslint-disable-next-line react-native/no-inline-styles
+        {width: fullWidth ? '100%' : 'auto'},
+        variant === 'secondary' && styles.buttonSecondary,
+      ]}
       onPress={isLoading ? undefined : onPress}
       {...props}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
-        <Text style={styles.buttonText}>{label}</Text>
+        <Text
+          style={
+            (styles.buttonText,
+            variant === 'secondary'
+              ? {color: Colors.primary}
+              : {color: Colors.white})
+          }>
+          {label}
+        </Text>
       )}
     </TouchableOpacity>
   );
@@ -47,6 +61,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 15,
+  },
+  buttonSecondary: {
+    backgroundColor: Colors.white,
+    borderWidth: 2,
+    borderColor: Colors.primary,
   },
   buttonText: {
     color: 'white',

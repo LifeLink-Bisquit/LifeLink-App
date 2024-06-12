@@ -9,7 +9,7 @@ import ProfileLogo from '../../../assets/svgs/profile.svg';
 import {Colors} from '../../constants/colors';
 import Text from '../../ui/components/Text/Text';
 import HomeScreen from '../../ui/screens/main/HomeScreen';
-import {RootStackParamList} from '../routes';
+import {MainScreens, RootStackParamList} from '../routes';
 import HomeStack from './HomeStackNavigator';
 import OperatorStack from './OperatorStackNavigator';
 import styles from './styles';
@@ -60,7 +60,7 @@ const MainNavigator = () => {
         tabBarActiveTintColor: Colors.secondary,
       }}>
       <Tab.Screen
-        name="Home"
+        name={MainScreens.Home}
         component={HomeScreen}
         options={{
           headerShown: true,
@@ -70,7 +70,7 @@ const MainNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Map"
+        name={MainScreens.Map}
         component={HomeStack}
         options={{
           tabBarLabel: t('map'),
@@ -78,7 +78,7 @@ const MainNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name={MainScreens.Profile}
         component={OperatorStack}
         options={{
           tabBarLabel: t('profile'),
