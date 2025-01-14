@@ -23,6 +23,7 @@ export const getAllEvacPerson = async (
       setLoading(false);
     })
     .catch(error => {
+      onSuccess({count: 0, items: []});
       Toast.show({
         type: 'error',
         text1: 'Error',

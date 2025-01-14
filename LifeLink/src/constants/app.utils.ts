@@ -10,7 +10,8 @@ export const STORAGE_KEYS = {
   USER: 'usr',
 };
 
-export const BASE_URL = 'https://lifelink-api.azurewebsites.net';
+export const BASE_URL =
+  'https://dev-lifelink-bmgnbae6gtaugycy.northeurope-01.azurewebsites.net';
 
 export enum PARAMETER_KEYS {
   USER_ROLE,
